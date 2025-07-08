@@ -1,39 +1,43 @@
+# launch tmux
 if [ -z "$TMUX" ]; then
-    tmux new-session
+    exec tmux new-session -A -s def
 fi
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Set the directory we want to store zinit and plugins
+# useful abbreviations
+alias s='sudo'
+alias su='tsu'
+alias n='nvim'
+alias c='clear'
+alias v='vim'
+alias upm='pkg'
+alias u='upm'
+#alias pkg='upm'
+alias l='ls'
+alias t='touch'
+alias k='cat'
+alias m='cmatrix'
+alias e='exit'
+alias ll='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias zshrc='nvim ~/.zshrc'
+alias gitconfig='nvim ~/.gitconfig'
+alias sstoml='nvim ~/.config/starship.toml'
+export projects='/data/data/com.termux/files/home/Document/Project'
+# zinit plugin manager
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-
-# Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
    mkdir -p "$(dirname $ZINIT_HOME)"
    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
-
-# Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
-
-alias nv='nvim'
-alias c='clear'
-alias vi='vim'
-alias upm='dnf'
-
-# Add in Powerlevel10k
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+# plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-
-# Lines configured by zsh-newuser-install
+# basic settings
 HISTFILE=~/.histfile
 HISTSIZE=5000
-SAVEHIST=$HISTSIZE
+SAVEHIST=5000
 HISTDUP=erase
 setopt appendhistory
 # setopt sharehistory
@@ -42,14 +46,12 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/kazaku/.zshrc'
-
+# Autocomplete
+zstyle :compinstall filename '~/zshrc'
 autoload -Uz compinit
 compinit
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
+# vim mode
 set -o vi
+# launch starship
+eval "$(starship init zsh)"
