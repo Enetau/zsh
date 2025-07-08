@@ -4,13 +4,17 @@ if [ -z "$TMUX" ]; then
 fi
 # useful abbreviations
 alias s='sudo'
-alias su='tsu'
+if [ -n "TERMUX_VERSION" ]; then
+  alias su='tsu'
+  alias upm='pkg'
+  #alias pkg='upm'
+elif grep -q 'ID=arch' /etc/os-release 2>/dev/null; then
+  alias upm='pacman'
+fi
+alias u='upm'
 alias n='nvim'
 alias c='clear'
 alias v='vim'
-alias upm='pkg'
-alias u='upm'
-#alias pkg='upm'
 alias l='ls'
 alias t='touch'
 alias k='cat'
@@ -19,10 +23,10 @@ alias e='exit'
 alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
-alias zshrc='nvim ~/.zshrc'
-alias gitconfig='nvim ~/.gitconfig'
-alias sstoml='nvim ~/.config/starship.toml'
-export projects='/data/data/com.termux/files/home/Document/Project'
+alias zshrc='n ~/.zshrc'
+alias gitconfig='n ~/.gitconfig'
+alias sstoml='n ~/.config/starship.toml'
+export proj="$HOME/Document/Project"
 # zinit plugin manager
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [ ! -d "$ZINIT_HOME" ]; then
