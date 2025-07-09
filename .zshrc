@@ -4,7 +4,8 @@ if [ -z "$TMUX" ]; then
 fi
 # useful abbreviations
 alias s='sudo'
-if [ -n "TERMUX_VERSION" ]; then
+alias z='cd'
+if [ -n "$TERMUX_VERSION" ]; then
   alias su='tsu'
   alias upm='pkg'
   #alias pkg='upm'
