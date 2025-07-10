@@ -37,6 +37,8 @@ alias lla='ls -lA'
 alias zshrc='n ~/.zshrc'
 alias gitconfig='n ~/.gitconfig'
 alias sstoml='n ~/.config/starship.toml'
+alias fman="bash -c 'compgen -c' | fzf | xargs man"
+export proj="$HOME/Document/Project"
 # zinit plugin manager
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -68,6 +70,8 @@ setopt hist_find_no_dups
 # autocomplete
 zstyle :compinstall filename '~/zshrc'
 autoload -Uz compinit && compinit
+# run bash build-in commands
+autoload -Uz bashcompinit && bashcompinit
 # completion styling
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 # keybinding
