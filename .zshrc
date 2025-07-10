@@ -4,13 +4,15 @@ if [ -z "$TMUX" ]; then
 fi
 # useful abbreviations
 alias s='sudo'
-alias z='cd'
+#alias z='cd'
 if [ -n "$TERMUX_VERSION" ]; then
   alias su='tsu'
   alias upm='pkg'
   #alias pkg='upm'
 elif grep -q 'ID=arch' /etc/os-release 2>/dev/null; then
   alias upm='pacman'
+else then
+  alias upm='dnf'
 fi
 alias u='upm'
 alias n='nvim'
@@ -36,13 +38,14 @@ if [ ! -d "$ZINIT_HOME" ]; then
 fi
 source "${ZINIT_HOME}/zinit.zsh"
 # plugins
+zinit ice depth=1
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 # basic settings
 HISTFILE=~/.histfile
 HISTSIZE=5000
-SAVEHIST=5000
+SAVEHIST=$HISTSIZE
 HISTDUP=erase
 setopt appendhistory
 # setopt sharehistory
@@ -58,5 +61,7 @@ compinit
 
 # vim mode
 set -o vi
+# launch zoxide
+eval "$(zoxide init zsh)"
 # launch starship
 eval "$(starship init zsh)"
