@@ -11,7 +11,6 @@ clear() {
 # useful abbreviations
 alias q='exit'
 alias s='sudo'
-#alias z='cd'
 alias p='python'
 if [ -n "$TERMUX_VERSION" ]; then
   alias su='tsu'
@@ -33,12 +32,11 @@ alias k='cat'
 alias m='cmatrix'
 alias e='exit'
 alias ll='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
+alias la='ls -A' #I don't need .. .
+alias lla='ls -lA'
 alias zshrc='n ~/.zshrc'
 alias gitconfig='n ~/.gitconfig'
 alias sstoml='n ~/.config/starship.toml'
-export proj="$HOME/Document/Project"
 # zinit plugin manager
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -51,7 +49,7 @@ zinit ice depth=1
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-# Add in snippets
+# add in snippets
 zinit snippet OMZL::git.zsh
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
@@ -67,16 +65,16 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
-# Autocomplete
+# autocomplete
 zstyle :compinstall filename '~/zshrc'
 autoload -Uz compinit && compinit
-# Completion styling
+# completion styling
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-# Keybinding
+# keybinding
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 # vim mode
-#set -o vi
+set -o emacs
 # launch zoxide
 eval "$(zoxide init zsh)"
 # launch fzf
