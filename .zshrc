@@ -1,10 +1,18 @@
 # launch tmux
 if [ -z "$TMUX" ]; then
-    exec tmux new-session -A -s def
+    exec tmux new-session -A -s 0
 fi
+clear() {
+  command clear
+  if [ -n "$TMUX" ]; then
+    tmux clear-history
+  fi
+}
 # useful abbreviations
+alias q='exit'
 alias s='sudo'
 #alias z='cd'
+alias p='python'
 if [ -n "$TERMUX_VERSION" ]; then
   alias su='tsu'
   alias upm='pkg'
@@ -18,6 +26,7 @@ alias u='upm'
 alias n='nvim'
 alias c='clear'
 alias v='vim'
+alias ls='ls --color'
 alias l='ls'
 alias t='touch'
 alias k='cat'
@@ -42,6 +51,10 @@ zinit ice depth=1
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
+# Add in snippets
+zinit snippet OMZL::git.zsh
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
 # basic settings
 HISTFILE=~/.histfile
 HISTSIZE=5000
@@ -56,12 +69,17 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 # Autocomplete
 zstyle :compinstall filename '~/zshrc'
-autoload -Uz compinit
-compinit
-
+autoload -Uz compinit && compinit
+# Completion styling
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# Keybinding
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
 # vim mode
-set -o vi
+#set -o vi
 # launch zoxide
 eval "$(zoxide init zsh)"
+# launch fzf
+#eval "$(fzf --zsh)"
 # launch starship
 eval "$(starship init zsh)"
