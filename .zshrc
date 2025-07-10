@@ -11,7 +11,7 @@ if [ -n "$TERMUX_VERSION" ]; then
   #alias pkg='upm'
 elif grep -q 'ID=arch' /etc/os-release 2>/dev/null; then
   alias upm='pacman'
-else then
+else
   alias upm='dnf'
 fi
 alias u='upm'
