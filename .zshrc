@@ -34,10 +34,14 @@ alias e='exit'
 alias ll='ls -l'
 alias la='ls -A' #I don't need .. .
 alias lla='ls -lA'
+alias lfc='ls -F | cat -n'
+alias lfac='ls -Fa | cat -n'
 alias zshrc='n ~/.zshrc'
 alias gitconfig='n ~/.gitconfig'
 alias sstoml='n ~/.config/starship.toml'
 alias fman="bash -c 'compgen -c' | fzf | xargs man"
+#alias d="mv -f $HOME/trash"
+cheh(){curl "https://cheat.sh/$1"}
 export proj="$HOME/Document/Project"
 export PATH=$HOME/.cargo/bin:$PATH
 # zinit plugin manager
